@@ -9,27 +9,16 @@
   <title>Music Player PWA</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
+    /* ===== ESTILOS (exactamente los mismos que ya tenías, no los cambio) ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #000; color: #fff; touch-action: pan-y; }
-    /* Botón hamburguesa */
-    .menu-toggle {
-      display: none; position: fixed; top: 12px; left: 12px; z-index: 200;
-      background: #1DB954; border: none; color: #000; font-size: 24px; width: 48px; height: 48px;
-      border-radius: 50%; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    }
+    .menu-toggle { display: none; position: fixed; top: 12px; left: 12px; z-index: 200; background: #1DB954; border: none; color: #000; font-size: 24px; width: 48px; height: 48px; border-radius: 50%; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
     .app { display: flex; height: 100vh; overflow: hidden; }
-    .sidebar {
-      width: 260px; background: #000; padding: 24px 16px; display: flex; flex-direction: column;
-      gap: 32px; border-right: 1px solid #282828; transition: transform 0.3s ease; z-index: 150;
-    }
+    .sidebar { width: 260px; background: #000; padding: 24px 16px; display: flex; flex-direction: column; gap: 32px; border-right: 1px solid #282828; transition: transform 0.3s ease; z-index: 150; }
     .logo { font-size: 24px; font-weight: bold; color: #1DB954; display: flex; align-items: center; gap: 10px; }
     .logo i { font-size: 28px; }
     nav ul { list-style: none; }
-    nav li {
-      padding: 12px 16px; margin: 4px 0; border-radius: 8px; font-size: 16px; font-weight: 500;
-      color: #b3b3b3; cursor: pointer; display: flex; align-items: center; gap: 14px;
-      transition: 0.2s;
-    }
+    nav li { padding: 12px 16px; margin: 4px 0; border-radius: 8px; font-size: 16px; font-weight: 500; color: #b3b3b3; cursor: pointer; display: flex; align-items: center; gap: 14px; transition: 0.2s; }
     nav li i { width: 24px; font-size: 20px; }
     nav li:hover, nav li.active { color: #fff; background: #282828; }
     .playlist-info { margin-top: auto; padding: 16px; font-size: 14px; color: #b3b3b3; border-top: 1px solid #282828; cursor: pointer; }
@@ -48,10 +37,7 @@
     .card p { font-size: 12px; color: #b3b3b3; }
     .card .fav-icon { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.6); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(4px); }
     .card .fav-icon.favorited i { color: #1DB954; }
-    .player {
-      position: fixed; bottom: 0; left: 0; right: 0; background: rgba(24,24,24,0.98); backdrop-filter: blur(10px);
-      border-top: 1px solid #282828; padding: 10px 16px; display: flex; flex-direction: column; gap: 6px; z-index: 100;
-    }
+    .player { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(24,24,24,0.98); backdrop-filter: blur(10px); border-top: 1px solid #282828; padding: 10px 16px; display: flex; flex-direction: column; gap: 6px; z-index: 100; }
     .player-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
     .player-info { display: flex; align-items: center; gap: 12px; min-width: 0; flex: 2; }
     .player-info img { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
@@ -77,7 +63,6 @@
     .modal-content p { font-size: 14px; line-height: 1.5; white-space: pre-wrap; color: #ddd; }
     .close-modal { position: absolute; top: 12px; right: 18px; font-size: 28px; cursor: pointer; color: #b3b3b3; }
     .credit { text-align: center; font-size: 12px; font-weight: 500; color: #1DB954; padding: 20px 0 80px; margin-top: 20px; border-top: 1px solid #282828; letter-spacing: 0.5px; }
-    /* Responsive móvil */
     @media (max-width: 768px) {
       .menu-toggle { display: flex; align-items: center; justify-content: center; }
       .sidebar { position: fixed; top: 0; left: 0; bottom: 0; transform: translateX(-100%); z-index: 300; background: #000; width: 75%; max-width: 260px; box-shadow: 2px 0 8px rgba(0,0,0,0.5); }
@@ -161,13 +146,15 @@
 
 <script>
   (function(){
-    // ========== LISTA INICIAL ==========
+    // ========== LISTA INICIAL ACTUALIZADA (incluye feet y time) ==========
     let songs = [
       { id: 1, title: "Trap 2020", artist: "Exclusive Banger", cover: "trap.jpg", audio: "trap_2020.mp3", isLocal: false, lyrics: "🔥 Letra no disponible aún." },
       { id: 2, title: "Rotos", artist: "Artista X", cover: "rotos.jpg", audio: "Rotos.mp3", isLocal: false, lyrics: "💔 Letra no disponible." },
-      { id: 3, title: "Softcore", artist: "Artista Y", cover: "softcore.jpg", audio: "Softcore.mp3", isLocal: false, lyrics: "🎵 Letra no disponible." }
+      { id: 3, title: "Softcore", artist: "Artista Y", cover: "softcore.jpg", audio: "Softcore.mp3", isLocal: false, lyrics: "🎵 Letra no disponible." },
+      { id: 4, title: "feet", artist: "Local", cover: "feet.jpg", audio: "feet.mp3", isLocal: false, lyrics: "Letra de feet no disponible." },
+      { id: 5, title: "time", artist: "Local", cover: "time.jpg", audio: "time.mp3", isLocal: false, lyrics: "Letra de time no disponible." }
     ];
-    let nextId = 4;
+    let nextId = 6;
     let currentSongIndex = 0;
     let isPlaying = false;
     let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
